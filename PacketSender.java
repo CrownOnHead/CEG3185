@@ -4,23 +4,13 @@ import java.io.*;
 public class PacketSender {
     public static void main(String[] args) throws Exception{
 
-        /*
+       
         //try to connect to server - localhost @ port 8888
         Socket client = new Socket("localhost",8888);
         //if server is not listening - You will get Exception
         // java.net.ConnectException: Connection refused: connect
 
-        //write to server using output stream
-        DataOutputStream out = new DataOutputStream(client.getOutputStream());
-        out.writeUTF("Hello server - How are you sent by Client");
-
-        //read from the server
-        DataInputStream in = new DataInputStream(client.getInputStream());
-        System.out.println("Data received from the server is -> " + in.readUTF());
-
-        //close the connection
-        client.close();
-    */
+   
         //get user input 
         StringBuffer user_input = new StringBuffer();
         for(int n = 0; n < args.length; n++) { 
@@ -149,6 +139,7 @@ public class PacketSender {
       System.out.println(checksum);
       String finalIPHeader = headerLength + tOS + " " + ipHeaderLength + " " + idField + " " + flags + " " + ttl + " " + checksum + " " + ipSourceHEX + " " + ipDstHEX;
       System.out.println(finalIPHeader);
+      String finalmessage = finalIPHeader + " " + result;
       //try to connect to server - localhost @ port 8888
       //Socket client = new Socket("localhost",8888);
       //if server is not listening - You will get Exception
@@ -164,5 +155,15 @@ public class PacketSender {
 
       //close the connection
       //client.close();
+      //write to server using output stream
+        DataOutputStream out = new DataOutputStream(client.getOutputStream());
+        out.writeUTF(finalmessage);
+
+        //read from the server
+        DataInputStream in = new DataInputStream(client.getInputStream());
+        System.out.println("Data received from the server is -> " + in.readUTF());
+
+        //close the connection
+        client.close();
   }
 }
