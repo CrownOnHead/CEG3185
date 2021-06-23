@@ -7,7 +7,7 @@ public class PacketReceiver extends Thread {
 
     public static void main(String[] args) throws Exception {
 
-        /*
+        
         System.out.println("Server Listening on 8888");
         ServerSocket serverSocket = new ServerSocket(8888);
         //server timeout 60 minutes
@@ -25,11 +25,11 @@ public class PacketReceiver extends Thread {
         out.writeUTF("Welcome and Bye Client!");
 
         //close the connection
-        server.close();
-        */
+     
+        
 
-        //String bababooey = in.readUTF();
-        String bababooey = "4500 0028 1c46 4000 4006 9D35 C0A8 0003 C0A8 0001 434f 4c4f 4d42 4941 2032 202d 204d 4553 5349 2030";
+        String bababooey = in.readUTF();
+        
         String baba = bababooey.replaceAll("\\s+", "");
         String ipTypeString = String.valueOf(baba.charAt(0)); //Get the IP Type
         String headerLengthString = String.valueOf(baba.charAt(1)); //Get the header length 
@@ -41,7 +41,7 @@ public class PacketReceiver extends Thread {
         length = length*2;//Find the amount of characters for the payload
 
         baba = baba.substring(0,length);
-        System.out.println(baba);
+        
 
         //System.out.println(baba);
         String checksum = "0000";
@@ -131,7 +131,12 @@ public class PacketReceiver extends Thread {
         }
         
     
+//Write to client using output stream
+out = new DataOutputStream(server.getOutputStream());
+out.writeUTF("Welcome and Bye Client!");
 
+//close the connection
+server.close();
     
 }
 }
@@ -150,7 +155,7 @@ public class PacketReceiver extends Thread {
         //close the connection
         server.close();
 
-        
+
         String messageRecived = "4500 0028 1c46 4000 4006 9D35 C0A8 0003 C0A8 0001 434f 4c4f 4d42 4941 2032 202d 204d 4553 5349 2030";
         String message = messageRecived.replaceAll("\\s", ""); //Remove Spaces
         String ipTypeString = String.valueOf(message.charAt(0)); //Get the IP Type

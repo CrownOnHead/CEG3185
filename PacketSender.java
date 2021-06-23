@@ -22,8 +22,7 @@ public class PacketSender {
 
         }
         String raw_input = user_input.toString();
-        System.out.println(raw_input);
-        System.out.println();
+        
 
         StringBuffer sb = new StringBuffer();
         //Converting string to character array
@@ -38,7 +37,7 @@ public class PacketSender {
 
         }
         String result = sb.toString();
-        System.out.println(result);
+      
 
         String data = result.replaceAll("\\s", "");
         String headerLength = "45";
